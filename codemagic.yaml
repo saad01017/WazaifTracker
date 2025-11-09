@@ -1,0 +1,20 @@
+workflows:
+  build-expo-apk:
+    name: Build Expo APK
+    environment:
+      node: 18
+      npm: true
+      expo: true
+    scripts:
+      - name: Install dependencies
+        script: npm install
+      - name: Build APK with EAS
+        script: |
+          npx eas login --token $EXPO_TOKEN
+          npx eas build -p android --profile preview --non-interactive
+    artifacts:
+      - build//*.apk
+    publishing:
+      email:
+        recipients:
+          - contact.saad@gmail.com
